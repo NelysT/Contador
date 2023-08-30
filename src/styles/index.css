@@ -10,3 +10,10 @@
     import 'relative/path/to/stylesheet.scss';
 
 */
+.cuadrado {
+  background: black;
+  color: aliceblue;
+  font-size: 80px;
+  border-color: gray;
+}
+
