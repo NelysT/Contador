@@ -1,82 +1,50 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 
 
 const Contador = () => {
 
-const [seconds1, setSeconds1] = useState(0);
-const [seconds2, setSeconds2] = useState(0);
-const [seconds3, setSeconds3] = useState(0);
-const [seconds4, setSeconds4] = useState(0);
-const [seconds5, setSeconds5] = useState(0);
-const [seconds6, setSeconds6] = useState(0);
-// const [status, setStatus] = useState('stopped')
+const [seconds, setSeconds] = useState(0);
 
-// const Stop = () => {
-//     setStatus('stopped')
-// }
-
-// const Start = () => {
-//     setStatus('started')
-//}
-    
-var contador;
 const iniciarContador = () => {
-    useEffect(() => {
-        // if (status==='started'){
-        //     setSeconds1(0)
-        //     setSeconds1(seconds1 => seconds1+1)
-                
-        contador = setInterval(() => {
-                setSeconds1(seconds1+1);
-                if (seconds1===9){
-                    setSeconds2(seconds2+1);
-                    setSeconds1(0);}
-                else if (seconds2===9){
-                    setSeconds3(seconds3+1);
-                    setSeconds2(0);
-                }
-                else if (seconds3===9){
-                    setSeconds4(seconds4+1);
-                    setSeconds3(0);
-                }
-                else if (seconds4===9){
-                    setSeconds5(seconds5+1);
-                    setSeconds4(0);
-                }
-                else if (seconds5===9){
-                    setSeconds6(seconds6+1);
-                    setSeconds5(0);
-                }
-                
-                },1000)
-                return ()=> {clearInterval(contador)
-                }
-            
-        });
+    const interval = setInterval(() => {
+        setSeconds(seconds => seconds + 1);
+      }, 1000);
+      return () => clearInterval(interval);
+
+}   
+
+const stopContador = () => {
+    clearInterval()
+}
+
+const seis = Math.floor((seconds / 100000) % 10);
+const cinco = Math.floor((seconds / 10000) % 10);
+const cuatro = Math.floor((seconds / 1000) % 10);
+const tres = Math.floor((seconds / 100) % 10);
+const dos = Math.floor((seconds / 10) % 10);
+const uno = seconds % 10;
+
+
+
         
-} 
-
-
-
 return (
     <div class="cuadrado container mt-5">
         <div class="row">
             <div class="col">
                 <img src="https://ih1.redbubble.net/image.726903074.2890/clkf,white,white,600x600-bg,f8f8f8.u1.jpg" class="img-fluid p-2"/>
             </div>
-            <div class="col">{seconds6}</div>
-            <div class="col">{seconds5}</div>
-            <div class="col">{seconds4}</div>
-            <div class="col">{seconds3}</div>
-            <div class="col">{seconds2}</div>
-            <div class="col">{seconds1}</div>
+            <div class="col">{seis}</div>
+            <div class="col">{cinco}</div>
+            <div class="col">{cuatro}</div>
+            <div class="col">{tres}</div>
+            <div class="col">{dos}</div>
+            <div class="col">{uno}</div>
+            <button onClick={iniciarContador}>Iniciar</button>
+            <button onClick={stopContador}>Stop</button>
         </div>
-        <div>
-            <button type="button" class="btn btn-primary" onClick={iniciarContador()}>Primary</button>
-        </div>
+        
     </div>
    
     )
 }
-
 export default Contador;
