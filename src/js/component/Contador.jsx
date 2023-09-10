@@ -1,22 +1,32 @@
-import React, {useState } from "react";
+import React, {useRef, useState } from "react";
 
 
 const Contador = () => {
 
 const [seconds, setSeconds] = useState(0);
+const intervalRef = useRef(null);
 
-const iniciarContador = () => {
-    const interval = setInterval(() => {
-        setSeconds(seconds => seconds + 1);
+  const iniciarContador = () => {
+    if (intervalRef.current === null) {
+      intervalRef.current = setInterval(() => {
+        setSeconds((prevSeconds) => prevSeconds + 1);
       }, 1000);
-      return () => clearInterval(interval);
+    }
+  };
+  const stopContador = () => {
+    if (intervalRef.current !== null) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  };
 
-}   
-
-const stopContador = () => {
-    clearInterval()
-}
-
+  const reiniciarContador = () => {
+    if (intervalRef.current !== null) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+      setSeconds(0); // Reinicia el contador a 0
+    }
+  };  
 const seis = Math.floor((seconds / 100000) % 10);
 const cinco = Math.floor((seconds / 10000) % 10);
 const cuatro = Math.floor((seconds / 1000) % 10);
@@ -39,8 +49,14 @@ return (
             <div class="col">{tres}</div>
             <div class="col">{dos}</div>
             <div class="col">{uno}</div>
-            <button onClick={iniciarContador}>Iniciar</button>
-            <button onClick={stopContador}>Stop</button>
+        </div>
+        <div className="container">
+            <div className="d-flex justify-content-between mt-3 ">
+                <button className="btn btn-info col-4 me-1" onClick={iniciarContador}>Iniciar</button>
+                <button className="btn btn-info col-4 me-1" onClick={stopContador}>Stop</button>
+                <button className="btn btn-info col-4 me-1" onClick={reiniciarContador}>Reiniciar</button>
+            </div>
+            
         </div>
         
     </div>
