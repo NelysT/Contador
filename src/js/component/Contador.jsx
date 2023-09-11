@@ -1,4 +1,4 @@
-import React, {useRef, useState } from "react";
+import React, {useEffect, useRef, useState } from "react";
 
 
 const Contador = () => {
@@ -8,11 +8,13 @@ const intervalRef = useRef(null);
 
   const iniciarContador = () => {
     if (intervalRef.current === null) {
-      intervalRef.current = setInterval(() => {
+      intervalRef.current = setInterval(() => { //haciendo la referencia de setInterval para luego poder detenerlo
         setSeconds((prevSeconds) => prevSeconds + 1);
       }, 1000);
     }
   };
+
+  useEffect (() => {iniciarContador()}, [])
   const stopContador = () => {
     if (intervalRef.current !== null) {
       clearInterval(intervalRef.current);
@@ -52,8 +54,8 @@ return (
         </div>
         <div className="container">
             <div className="d-flex justify-content-between mt-3 ">
-                <button className="btn btn-info col-4 me-1" onClick={iniciarContador}>Iniciar</button>
-                <button className="btn btn-info col-4 me-1" onClick={stopContador}>Stop</button>
+                <button className="btn btn-info col-4 me-1" onClick={iniciarContador}>Reanudar</button>
+                <button className="btn btn-info col-4 me-1" onClick={stopContador}>Detener</button>
                 <button className="btn btn-info col-4 me-1" onClick={reiniciarContador}>Reiniciar</button>
             </div>
             
